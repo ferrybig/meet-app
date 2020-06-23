@@ -1,0 +1,33 @@
+.flex-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.root {
+	composes: flex-item;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	border-top: 1px solid rgb(40, 40, 60);
+	background: rgb(20, 20, 40);
+}
+.flex {
+	composes: flex-item;
+	flex: 1;
+}
+.space > * {
+	margin: 0 4px;
+}
+.left {
+	composes: flex space;
+	justify-content: flex-start;
+}
+.right {
+	composes: flex space;
+	justify-content: flex-end;
+}
+.center {
+	composes: flex-item space;
+}

@@ -1,0 +1,47 @@
+.root {
+	color: white;
+	border: 1px solid rgb(0, 128, 128);
+	border-radius: 8px;
+	padding: 8px;
+	cursor: pointer;
+}
+.rootIcon {
+	border-radius: 100%;
+}
+.text {
+	margin: 0px 2px;
+}
+.textMarginLeft {
+	margin-left: 8px;
+}
+.textMarginRight {
+	margin-right: 8px;
+}
+.colorNormal {
+	background: rgb(48, 48, 48);
+	border: 1px solid rgb(64, 64, 64);
+}
+.colorNormal:hover, .colorNormal:focus {
+	background: rgb(40, 40, 40);
+}
+.colorAqua {
+	background: rgb(0, 96, 96);
+	border: 1px solid rgb(0, 128, 128);
+}
+.colorAqua:hover, .colorAqua:focus {
+	background: rgb(0, 80, 80);
+}
+.colorRed {
+	background: rgb(96, 0, 0);
+	border: 1px solid rgb(128, 0, 0);
+}
+.colorRed:hover, .colorRed:focus {
+	background: rgb(80, 0, 0);
+}
+.colorGreen {
+	background: rgb(0, 96, 0);
+	border: 1px solid rgb(0, 128, 0);
+}
+.colorGreen:hover, .colorGreen:focus {
+	background: rgb(0, 80, 0);
+}
