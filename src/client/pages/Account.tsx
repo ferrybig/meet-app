@@ -1,7 +1,7 @@
-import React, {FC, useLayoutEffect, useState, useCallback, MouseEvent} from 'react';
+import React, {FC, useLayoutEffect, useCallback} from 'react';
 import classes from './Account.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {accountReady, attachMicrophone, attachCamera, requestCamera, requestMicrophone} from '../store/actions';
+import {accountReady, requestCamera, requestMicrophone} from '../store/actions';
 import Center from '../components/Center';
 import OwnVideoFrame from '../components/OwnVideoFrame';
 import Button from '../components/Button';

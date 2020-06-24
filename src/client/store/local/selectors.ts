@@ -32,5 +32,8 @@ export default {
 	),
 	getMutedState(state: MeetingState) {
 		return state.muted;
-	}
+	},
+	getPictureInPictureEnabled(state: MeetingState) {
+		return state.pictureInPictureEnabled;
+	},
 };

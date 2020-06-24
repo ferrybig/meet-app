@@ -19,6 +19,8 @@ export const attachCamera = action('attachCamera', (stream: MediaStream | null) 
 export const attachPresentation = action('attachPresentation', (stream: MediaStream | null) => stream);
 
 export const muteMicrophone = action('muteMicrophone', (muted: boolean) => muted);
+export const pictureInPictureEnable = action('pictureInPictureEnable', () => null);
+export const pictureInPictureDisable = action('pictureInPictureDisable', () => null);
 
 export const joinedMeeting = action('joinedMeeting', () => null);
 export const joinedMeetingSuccess = action('joinedMeetingSuccess', (clientIdList: string[], iceServers: RTCIceServer[]) => ({ clientIdList, iceServers }));

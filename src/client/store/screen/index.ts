@@ -8,9 +8,21 @@ export default buildReducer(initialState, mainActions, {
 		return doMutation(state).set('currentScreen', 'account');
 	},
 	connectionLost(state, { payload }) {
-		return doMutation(state).set('currentError', payload);
+		return doMutation(state).batch(
+			s => s.set('currentError', payload),
+			s => s.set('loading', false),
+		);
 	},
 	joinedMeeting(state) {
-		return doMutation(state).set('currentScreen', 'meeting');
+		return doMutation(state).batch(
+			s => s.set('currentScreen', 'meeting'),
+			s => s.set('loading', true),
+		);
+	},
+	joinedMeetingSuccess(state) {
+		return doMutation(state).set('loading', false);
+	},
+	endCall(state) {
+		return doMutation(state).set('loading', false);
 	},
 });

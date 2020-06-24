@@ -5,9 +5,8 @@ import {attachMicrophone, attachCamera, attachPresentation} from "../store/actio
 import loopedActionChannel from "../../common/sagas/loopedActionChannel";
 import loopedEventChannel from "../../common/sagas/loopedEventChannel";
 import onEvent from "../../common/utils/onEvent";
-import assertNever from "../../common/utils/assertNever";
 
-function* killStream(stream: MediaStream): SagaIterator {
+function killStream(stream: MediaStream) {
 	for (const track of stream.getTracks()) {
 		track.stop();
 	}

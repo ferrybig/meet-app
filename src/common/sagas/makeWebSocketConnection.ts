@@ -2,7 +2,6 @@ import NodeWebSocket from 'ws';
 import {Channel, END, SagaIterator, EventChannel, channel, eventChannel} from 'redux-saga';
 import {takeMaybe, apply, call, spawn} from 'redux-saga/effects';
 import onEvent from '../utils/onEvent';
-import {take} from '../utils/effects';
 
 function* spawnSocketHelper(socket: WebSocket | NodeWebSocket, channel: Channel<string>) {
 	while (true) {
@@ -20,9 +19,12 @@ function* spawnSocketHelper(socket: WebSocket | NodeWebSocket, channel: Channel<
 export default function* makeWebSocketChannel(url: string | WebSocket | NodeWebSocket): SagaIterator<readonly [EventChannel<string>, Channel<string>]> {
 	const outgoing: Channel<string> = yield call(channel);
 	const socket = typeof url === 'string' ? new WebSocket(url) : url;
+	let error: string | null = null;
 	const incoming = eventChannel<string>(emitter => {
 		return onEvent(socket, {
-			close() {
+			close(e) {
+				console.warn('Close', e);
+				error = e.reason;
 				emitter(END); // Close incoming channel
 				outgoing.close(); // Close outging channel
 			},
@@ -31,7 +33,7 @@ export default function* makeWebSocketChannel(url: string | WebSocket | NodeWebS
 				emitter(evt.data);
 			},
 			error (e) {
-				console.error(e);
+				console.warn('Caught error event: ' + e);
 			},
 			open() {
 				console.log('Open ');
@@ -41,7 +43,10 @@ export default function* makeWebSocketChannel(url: string | WebSocket | NodeWebS
 	});
 	console.log(socket.readyState);
 	if (socket.readyState < 1 /* OPEN */) {
-		const initPacket = yield take(incoming);
+		const initPacket = yield takeMaybe(incoming);
+		if (error !== null) {
+			throw new Error(error || 'Connection timed out');
+		}
 		if (initPacket !== '@INIT') {
 			throw new Error('Socket not ready yet');
 		}

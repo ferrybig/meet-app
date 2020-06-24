@@ -6,6 +6,7 @@ import connected from "../connected";
 import assertNever from "../../../../common/utils/assertNever";
 import {take} from "../../../../common/utils/effects";
 import {InitialClientToServer, InitialServerToClient} from "../../../../common/packets";
+import {VERSION} from "../../../../common/constants";
 
 export default function* handleInitialConnection(
 	incoming: EventChannel<string>,
@@ -16,7 +17,7 @@ export default function* handleInitialConnection(
 	const stringify: (p: InitialClientToServer) => string = JSON.stringify;
 	yield put(outgoing, stringify({
 		type: 'version',
-		version: '1.0.0', // Todo proper version string
+		version: VERSION, // Todo proper version string
 	}));
 	while(true) {
 		const packet: InitialServerToClient = JSON.parse(yield take(incoming));

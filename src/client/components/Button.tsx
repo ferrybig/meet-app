@@ -29,13 +29,16 @@ const Button: FC<Props> = ({
 	onClick,
 	color = 'aqua',
 }): JSX.Element => {
+	const hasIcon = !!Icon;
+	const hasLeftIcon = !!iconLeft;
+	const hasRightIcon = !!iconRight;
 	const rootClassName = useMemo(() => classNames(classes.root, colorMap[color], {
-		[classes.rootIcon]: !!Icon,
-	}), [!Icon, color]);
+		[classes.rootIcon]: hasIcon,
+	}), [hasIcon, color]);
 	const textClassName = useMemo(() => classNames(classes.text, {
-		[classes.textMarginLeft]: !iconLeft && !Icon,
-		[classes.textMarginRight]: !iconRight && !Icon,
-	}), [!iconLeft, !iconRight, !Icon]);
+		[classes.textMarginLeft]: !hasLeftIcon && !hasIcon,
+		[classes.textMarginRight]: !hasRightIcon && !hasIcon,
+	}), [hasLeftIcon, hasRightIcon, hasIcon]);
 	return (
 		<button className={rootClassName} onClick={onClick}>
 			{iconLeft}

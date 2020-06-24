@@ -1,11 +1,11 @@
 import React, { FC, memo } from 'react';
-import PictureInPictureIcon from '@material-ui/icons/PictureInPictureAlt';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import Button from '../Button';
-import classes from './index.module.css';
 import MicButton from './MicButton';
 import CameraButton from './CameraButton';
 import EndCallButton from './EndCallButton';
+import PictureInPictureButton from './PictureInPictureButton';
+import classes from './index.module.css';
 
 const ControlBar: FC = (): JSX.Element => {
 
@@ -19,7 +19,7 @@ const ControlBar: FC = (): JSX.Element => {
 				<EndCallButton/>
 			</div>
 			<div className={classes.right}>
-				<Button icon={PictureInPictureIcon}/>
+				<PictureInPictureButton/>
 				<Button icon={FullscreenIcon}/>
 			</div>
 		</div>

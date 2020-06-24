@@ -9,6 +9,7 @@ export default interface MeetingState {
 		presentation: MediaStream | null,
 	},
 	muted: boolean,
+	pictureInPictureEnabled: boolean,
 }
 export const initialState: Readonly<MeetingState> = {
 	account: {
@@ -25,4 +26,5 @@ export const initialState: Readonly<MeetingState> = {
 		presentation: null,
 	},
 	muted: false,
+	pictureInPictureEnabled: false,
 };

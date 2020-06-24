@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from 'react';
-import classes from './SoundIndicator.module.css';
 
 interface Props {
 	audio: AnalyserNode | null;

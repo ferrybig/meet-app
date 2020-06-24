@@ -7,4 +7,7 @@ export default {
 	getError(state: ScreenState) {
 		return state.currentError;
 	},
+	isLoading(state: ScreenState) {
+		return state.loading;
+	},
 }

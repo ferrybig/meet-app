@@ -1,0 +1,60 @@
+.root {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 16px;
+	padding: 16px;
+	background: rgb(20, 20, 40);
+	box-shadow: 0px 0px 2px 2px rgb(40, 40, 60);
+	pointer-events: none;
+	text-align: center;
+}
+.spinner {
+	animation: svg-animation 2s linear infinite;
+	max-width: 100px;
+}
+.title {
+	font-size: 24px;
+	margin-bottom: 16px;
+}
+
+@keyframes svg-animation {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	100% {
+		transform: rotateZ(360deg)
+	}
+}
+
+.spinnerCircle {
+	animation: circle-animation 1.4s ease-in-out infinite both;
+	display: block;
+	fill: transparent;
+	stroke: #2f3d4c;
+	stroke-linecap: round;
+	stroke-dasharray: 283;
+	stroke-dashoffset: 280;
+	stroke-width: 10px;
+	transform-origin: 50% 50%;
+}
+
+@keyframes circle-animation {
+	0%,
+	25% {
+		stroke-dashoffset: 280;
+		transform: rotate(0);
+	}
+
+	50%,
+	75% {
+		stroke-dashoffset: 75;
+		transform: rotate(45deg);
+	}
+
+	100% {
+		stroke-dashoffset: 280;
+		transform: rotate(360deg);
+	}
+}

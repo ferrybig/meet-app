@@ -4,7 +4,6 @@ import {PersistState} from "../store/types";
 import {take} from "../../common/utils/effects";
 
 const STORAGE_KEY = 'meet-app';
-const VERSION = 'v1.0';
 const storage = window.localStorage;
 
 export default function* persistSaga() {

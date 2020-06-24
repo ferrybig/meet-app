@@ -3,7 +3,7 @@ import iceHandler from "./ice";
 import {fork, actionChannel, select, put, apply} from "redux-saga/effects";
 import {Channel} from "redux-saga";
 import {AnyAction} from "redux";
-import {getLocalVirtualMicrophoneStream, getLocalCameraStream, getLocalPresentationStream, getConnectionIceServers, getLocalMicrophoneStream} from "../../../../store/selectors";
+import {getLocalVirtualMicrophoneStream, getLocalCameraStream, getLocalPresentationStream, getConnectionIceServers} from "../../../../store/selectors";
 import StreamIdentity from "./StreamIdentity";
 import {take} from "../../../../../common/utils/effects";
 import assertNever from "../../../../../common/utils/assertNever";

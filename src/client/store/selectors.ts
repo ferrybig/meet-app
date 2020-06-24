@@ -16,6 +16,7 @@ export const getLocalPresentationStream = getLocalState.connect(local.getPresent
 export const getLocalName = getLocalState.connect(local.getName);
 export const getLocalAsPerson = getLocalState.connect(local.getAsPerson);
 export const getLocalMutedState = getLocalState.connect(local.getMutedState);
+export const getLocalPictureInPictureEnabled = getLocalState.connect(local.getPictureInPictureEnabled);
 
 export const getConnectionState = stateSelector('connection');
 export const getConnectionIceServers = getConnectionState.connect(connection.getIceServers);
@@ -23,6 +24,7 @@ export const getConnectionIceServers = getConnectionState.connect(connection.get
 export const getScreenState = stateSelector('screen');
 export const getScreenStateScreen = getScreenState.connect(screen.getCurrentScreen);
 export const getScreenStateError = getScreenState.connect(screen.getError);
+export const isScreenLoading = getScreenState.connect(screen.isLoading);
 
 export const getPeopleState = stateSelector('people');
 export const getPeopleKnownIds = getPeopleState.connect(people.getKnownIds);
