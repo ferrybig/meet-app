@@ -51,6 +51,10 @@ export interface ClientSdpUpdatePacket {
 	sdp: RTCSessionDescriptionInit;
 	isOffer: boolean,
 }
+export interface ClientSdpRequestPacket {
+	type: 'client-sdp-request',
+	clientId: string,
+}
 export interface ClientHealthPacket {
 	type: 'client-health',
 	clientId: string,
@@ -60,5 +64,5 @@ export interface ClientHealthPacket {
 
 export type InitialServerToClient = PreAuthPacket | DisconnectPacket | AuthorizedPacket;
 export type InitialClientToServer = VersionPacket | PreAuthResponsePacket;
-export type ConnectedServerToClient = PingPacket | ClientIceUpdatePacket | ClientSdpUpdatePacket | ClientJoinedPacket | ClientDisconnectedPacket | DisconnectPacket;
-export type ConnectedClientToServer = PongPacket | ClientIceUpdatePacket | ClientSdpUpdatePacket;
+export type ConnectedServerToClient = PingPacket | ClientIceUpdatePacket | ClientSdpUpdatePacket | ClientSdpRequestPacket | ClientJoinedPacket | ClientDisconnectedPacket | DisconnectPacket;
+export type ConnectedClientToServer = PongPacket | ClientIceUpdatePacket | ClientSdpUpdatePacket | ClientSdpRequestPacket;

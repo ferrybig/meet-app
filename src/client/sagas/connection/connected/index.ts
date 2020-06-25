@@ -1,5 +1,5 @@
 import {StrictEffect, fork, put, cancel} from "redux-saga/effects";
-import {clientOutgoingSdp, clientOutgoingIce, clientJoin, clientIncomingIce, clientIncomingSdp, clientDisconnect, connectionLost} from "../../../store/actions";
+import {clientOutgoingSdp, clientOutgoingIce, clientJoin, clientIncomingIce, clientNegotiationNeeded, clientIncomingSdp, clientDisconnect, connectionLost, clientRequestSdp} from "../../../store/actions";
 import assertNever from "../../../../common/utils/assertNever";
 import {EventChannel, Channel, SagaIterator} from "redux-saga";
 import {take} from "../../../../common/utils/effects";
@@ -10,6 +10,7 @@ function* connectionDispatcher(sendMessage: (p: ConnectedClientToServer) => Stri
 	const actions = [
 		clientOutgoingSdp,
 		clientOutgoingIce,
+		clientRequestSdp,
 	];
 	while (true) {
 		const action: ReturnType<typeof actions[number]> = yield take(actions);
@@ -20,6 +21,12 @@ function* connectionDispatcher(sendMessage: (p: ConnectedClientToServer) => Stri
 					clientId: action.payload.clientId,
 					sdp: action.payload.sdp,
 					isOffer: action.payload.isOffer,
+				});
+				break;
+			case 'clientRequestSdp':
+				yield sendMessage({
+					type: 'client-sdp-request',
+					clientId: action.payload.clientId,
 				});
 				break;
 			case 'clientOutgoingIce':
@@ -58,6 +65,9 @@ export default function* connected(
 					break;
 				case 'client-sdp':
 					yield put(clientIncomingSdp(packet.clientId, packet.sdp, packet.isOffer));
+					break;
+				case 'client-sdp-request':
+					yield put(clientNegotiationNeeded(packet.clientId));
 					break;
 				case 'client-disconnect':
 					yield put(clientDisconnect(packet.clientId));

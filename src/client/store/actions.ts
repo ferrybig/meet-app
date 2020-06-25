@@ -30,6 +30,8 @@ export const clientIncomingSdp = action('clientIncomingSdp', (clientId: string, 
 export const clientIncomingIce = action('clientIncomingIce', (clientId: string, ice: RTCIceCandidateInit[]) => ({ clientId, ice }));
 export const clientOutgoingSdp = action('clientOutgoingSdp', (clientId: string, sdp: RTCSessionDescriptionInit, isOffer: boolean) => ({ clientId, sdp, isOffer }));
 export const clientOutgoingIce = action('clientOutgoingIce', (clientId: string, ice: RTCIceCandidateInit[]) => ({ clientId, ice }));
+export const clientRequestSdp = action('clientRequestSdp', (clientId: string) => ({ clientId }));
+export const clientNegotiationNeeded = action('clientNegotiationNeeded', (clientId: string) => ({ clientId }));
 export const clientDisconnect = action('clientDisconnect', (clientId: string) => ({ clientId }));
 export const clientStreamAdded = action('clientStreamAdded', (clientId: string, mediaInfo: MediaInfo) => ({ clientId, mediaInfo }));
 export const clientStreamRemoved = action('clientStreamRemoved', (clientId: string, mediaInfo: MediaInfo) => ({ clientId, mediaInfo }));

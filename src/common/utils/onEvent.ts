@@ -24,6 +24,7 @@ export default function onEvent<T extends {
 
 type TargetToMapType<T> =
 	T extends WebSocket ? WebSocketEventMap :
+	T extends RTCDataChannel ? RTCDataChannelEventMap :
 	T extends RTCPeerConnection ? RTCPeerConnectionEventMap :
 	T extends NodeWebSocket ? {
 		message: { data: any; type: string; target: NodeWebSocket },
@@ -33,6 +34,7 @@ type TargetToMapType<T> =
 	} :
 	T extends MediaStream ? MediaStreamEventMap :
 	T extends MediaStreamTrack ? MediaStreamTrackEventMap :
+	T extends HTMLVideoElement ? HTMLVideoElementEventMap :
 	T extends HTMLElement ? HTMLElementEventMap :
 	T extends Window ? WindowEventMap :
 	Record<string, any>

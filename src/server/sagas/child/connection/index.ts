@@ -3,7 +3,7 @@ import {StrictEffect, put, fork, actionChannel, cancel, select} from "redux-saga
 import {ConnectedClientToServer, ConnectedServerToClient} from "../../../../common/packets";
 import {take} from "../../../../common/utils/effects";
 import assertNever from "../../../../common/utils/assertNever";
-import {clientOutgoingIce, clientOutgoingSdp, clientJoin, clientDisconnect, clientPing} from "../../../store/actions";
+import {clientOutgoingIce, clientOutgoingSdp, clientJoin, clientDisconnect, clientPing, clientRequestSdp} from "../../../store/actions";
 import {AnyAction} from "redux";
 import {getChatPeopleInRoom, getPersonOrNull} from "../../../store/selectors";
 import {Connection} from "../../../store/types";
@@ -11,6 +11,7 @@ import {Connection} from "../../../store/types";
 const EVENTS_CHILD = [
 	clientOutgoingIce,
 	clientOutgoingSdp,
+	clientRequestSdp,
 	clientJoin,
 	clientDisconnect,
 	clientPing,
@@ -62,6 +63,12 @@ function* connectionDispatcher(clientId: string, roomId: string, sendMessage: (p
 					sdp: action.payload.sdp,
 					clientId: action.payload.sourceClientId,
 					isOffer: action.payload.isOffer,
+				});
+				break;
+			case 'clientRequestSdp':
+				yield sendMessage({
+					type: 'client-sdp-request',
+					clientId: action.payload.sourceClientId,
 				});
 				break;
 			case 'clientPing':
@@ -134,6 +141,9 @@ export default function* handleConnectedConnection(
 					break;
 				case 'client-sdp':
 					yield put(clientOutgoingSdp(clientId, packet.clientId, packet.sdp, packet.isOffer));
+					break;
+				case 'client-sdp-request':
+					yield put(clientRequestSdp(clientId, packet.clientId));
 					break;
 				case 'pong':
 					break;

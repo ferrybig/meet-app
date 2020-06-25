@@ -1,4 +1,4 @@
-import {clientIncomingIce, clientIncomingSdp, attachVirtualMicrophone, attachCamera, attachPresentation, clientOutgoingSdp} from "../../../../store/actions";
+import {clientIncomingIce, clientIncomingSdp, clientRequestSdp, attachVirtualMicrophone, attachCamera, attachPresentation, clientOutgoingSdp, clientNegotiationNeeded} from "../../../../store/actions";
 import iceHandler from "./ice";
 import {fork, actionChannel, select, put, apply} from "redux-saga/effects";
 import {Channel} from "redux-saga";
@@ -14,6 +14,7 @@ import clientHealthHandler from "./clientHealth";
 const EVENTS_CHILD = [
 	clientIncomingIce,
 	clientIncomingSdp,
+	clientNegotiationNeeded,
 	attachVirtualMicrophone,
 	attachCamera,
 	attachPresentation,
@@ -75,6 +76,15 @@ export default function* childHandler(clientId: string, shouldOffer: boolean) {
 						const sdp = yield apply(connection, connection.createAnswer, []);
 						connection.setLocalDescription(sdp);
 						yield put(clientOutgoingSdp(clientId, sdp, false));
+					}
+					break;
+				case 'clientNegotiationNeeded':
+					if (shouldOffer) {
+						const sdp = yield apply(connection, connection.createOffer, []);
+						yield apply(connection, connection.setLocalDescription, [sdp]);
+						yield put(clientOutgoingSdp(clientId, sdp, true));
+					} else {
+						yield put(clientRequestSdp(clientId));
 					}
 					break;
 				case 'attachVirtualMicrophone':

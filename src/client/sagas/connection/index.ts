@@ -11,7 +11,7 @@ import {AnyAction} from "redux";
 export default function* openConnection(account: Account): SagaIterator<boolean> {
 	yield put(joinedMeeting());
 	try {
-		const [incoming, outgoing]: [EventChannel<string>, Channel<string>] = yield call(makeWebSocketChannel, 'ws://localhost:3000/meeting');
+		const [incoming, outgoing]: [EventChannel<string>, Channel<string>] = yield call(makeWebSocketChannel, 'ws://localhost:5000/meeting');
 		try {
 			let handler = call(handleInitialConnection, incoming, outgoing, account);
 			while (handler) {
